@@ -1,0 +1,24 @@
+backend/app/core/errors.py
+  s_e42a0a8d7e6bba::t_09e6e0f389c572 34,39
+  s_e42a0a8d7e6bba::t_9cec0431ed2ee8 45,47-50
+  s_e42a0a8d7e6bba::t_7f56cc04a41dab 51-52
+  s_e42a0a8d7e6bba::t_8a3284f34a38e3 8
+backend/tests/integration/test_errors.py
+  s_e42a0a8d7e6bba::t_556cbca809c2cd 52-60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b3e2930984cbc36b43e73f34add7a4687c320ad4",
+  "prompts": {},
+  "sessions": {
+    "s_e42a0a8d7e6bba": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5724625b-5a82-4883-b87f-404a6af237ab",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Nafiye Demiroğ <45822420+nafiyedemirog@users.noreply.github.com>"
+    }
+  }
+}
