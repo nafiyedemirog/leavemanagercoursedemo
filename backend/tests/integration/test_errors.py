@@ -49,3 +49,12 @@ def test_unexpected_error_returns_generic_problem_details_500(
     assert "Traceback" not in response.text
     assert "internal.py" not in response.text
     assert "RuntimeError" not in response.text
+
+
+def test_method_not_allowed_keeps_allow_header(client: TestClient) -> None:
+    response = client.post("/api/health")
+
+    assert response.status_code == 405
+    assert response.headers.get("allow") == "GET, HEAD"  # Starlette adds HEAD to GET routes
+    assert response.headers["content-type"].startswith("application/problem+json")
+    assert response.json()["type"] == "http-error"

@@ -5,6 +5,7 @@ internal details (exception message, stack trace, SQL, paths) never reach the cl
 """
 
 import logging
+from collections.abc import Mapping
 from typing import Any
 
 from fastapi import FastAPI, Request
@@ -30,19 +31,25 @@ def problem_response(
     title: str,
     detail: str,
     errors: list[dict[str, Any]] | None = None,
+    headers: Mapping[str, str] | None = None,
 ) -> JSONResponse:
     body: dict[str, Any] = {"type": type_, "title": title, "status": status, "detail": detail}
     if errors is not None:
         body["errors"] = errors
-    return JSONResponse(body, status_code=status, media_type=PROBLEM_JSON)
+    return JSONResponse(body, status_code=status, media_type=PROBLEM_JSON, headers=headers)
 
 
 async def _http_exception_handler(request: Request, exc: Exception) -> JSONResponse:
     if not isinstance(exc, StarletteHTTPException):
         raise exc
+    # Keep headers the exception carries (405 Allow, later 401 WWW-Authenticate).
     if exc.status_code == 404:
-        return problem_response(404, "not-found", "Not Found", NOT_FOUND_DETAIL)
-    return problem_response(exc.status_code, "http-error", "HTTP Error", HTTP_ERROR_DETAIL)
+        return problem_response(
+            404, "not-found", "Not Found", NOT_FOUND_DETAIL, headers=exc.headers
+        )
+    return problem_response(
+        exc.status_code, "http-error", "HTTP Error", HTTP_ERROR_DETAIL, headers=exc.headers
+    )
 
 
 async def _validation_exception_handler(request: Request, exc: Exception) -> JSONResponse:
