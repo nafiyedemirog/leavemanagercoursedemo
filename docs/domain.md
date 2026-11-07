@@ -1,24 +1,40 @@
 # Domain
 
-> **Template — filled during bootstrap.** The shared language between business, humans, and agents.
-> If a term isn't here, expect the AI to invent its own meaning for it.
+> Bootstrap'ta belirlendi (2026-11-07). İş, insanlar ve ajanlar arasındaki ortak dil.
+> Bir terim burada yoksa, yapay zekâ kendi anlamını uydurur — eksik terimi buraya ekleyin.
 
 ## Ubiquitous language
-<!-- One row per term. Same word = same meaning, everywhere: code, specs, conversation. -->
 
 | Term | Meaning | Notes / not to be confused with |
 |---|---|---|
-| | | |
+| Çalışan (`Employee`, rol `EMPLOYEE`) | İzin talebi oluşturan kullanıcı | Yönetici de bir `Employee` kaydıdır; farkı rolüdür |
+| Yönetici (`MANAGER`) | Talepleri onaylayan/reddeden kullanıcı | Takım hiyerarşisi yok: her yönetici her talebi görür (kendi talebi hariç onaylayamaz) |
+| İzin talebi (`LeaveRequest`) | Bir çalışanın belirli tarih aralığı için izin isteği | Onaylanmış izin de bir talep kaydıdır (durumu `APPROVED`) |
+| İzin türü (`LeaveType`) | `ANNUAL` (yıllık), `EXCUSE` (mazeret), `SICK` (hastalık) | Yalnızca `ANNUAL` bakiyeden düşer |
+| Durum (`LeaveStatus`) | `PENDING` (beklemede), `APPROVED` (onaylı), `REJECTED` (reddedildi) | Bu sürümde iptal durumu yok |
+| Bakiye (`LeaveBalance`) | Çalışanın kalan yıllık izin günü (tam sayı) | Bekleyen talepler bakiyeyi değiştirmez |
+| Gün sayısı | Başlangıç ve bitiş dahil takvim günü sayısı | Hafta sonu / resmi tatil düşülmez |
+| Ret gerekçesi | Yöneticinin reddederken yazdığı açıklama | Ret için zorunlu |
 
 ## Business rules
-<!-- Numbered, testable statements. e.g. "BR-3: An order in status Delivered is immutable." -->
+- **BR-1:** İzin türleri yalnızca `ANNUAL`, `EXCUSE`, `SICK`'tir; başka değer kabul edilmez.
+- **BR-2:** Gün sayısı = bitiş − başlangıç + 1 (takvim günü; başlangıç ve bitiş dahil). Bitiş, başlangıçtan önce olamaz.
+- **BR-3:** Yalnızca `ANNUAL` türündeki talepler bakiyeyi etkiler.
+- **BR-4:** Bakiye, talep **onaylandığında** düşer; `PENDING` bir talep bakiyeyi değiştirmez.
+- **BR-5:** Negatif bakiye yasaktır: gün sayısı mevcut bakiyeyi aşan `ANNUAL` talebi oluşturulamaz ve onaylanamaz (onay anında yeniden denetlenir).
+- **BR-6:** Aynı çalışanın `PENDING` veya `APPROVED` talepleri tarih olarak çakışamaz (tek gün ortaklık da çakışmadır).
+- **BR-7:** Reddedilen talep bakiyeyi etkilemez; ret gerekçesi zorunludur (boş olamaz).
+- **BR-8:** Yalnızca `PENDING` bir talep onaylanabilir veya reddedilebilir; `APPROVED`/`REJECTED` talep değiştirilemez.
+- **BR-9:** Onaylama ve reddetme yalnızca `MANAGER` rolüne açıktır; yönetici **kendi talebini** onaylayamaz/reddedemez.
+- **BR-10:** Çalışan yalnızca kendi taleplerini ve kendi bakiyesini görür; yönetici tüm talepleri görür.
 
 ## Key domain invariants
-<!-- Things that must NEVER be violated, regardless of feature pressure. -->
+- Bakiye hiçbir koşulda sıfırın altına inmez.
+- Bir talebin bakiyeye etkisi en fazla bir kez uygulanır (yalnızca `PENDING → APPROVED` geçişinde).
+- Durum geçişleri yalnızca `PENDING → APPROVED` ve `PENDING → REJECTED`'tir.
+- Bakiye ve durum değişikliği aynı transaction içinde olur: biri olup diğeri olmaz durumu yoktur.
 
 ## Sensitive areas
-<!-- Where a mistake costs money, access or legal standing (e.g. payments, identity, personal
-     data). A spec that touches one says so in Constraints (`Sensitive area: <name>`); there the
-     clarify gate is asked in lite too, every fix round but a documents-only one is
-     re-reviewed, and every criterion is proven red by one deliberate break
-     (workflows/README.md, Modes). "None" is a valid answer. -->
+- **İzin bakiyesi** (`LeaveBalance`, BR-3…BR-5) — hata, çalışanın hak kaybı ya da fazladan izin demektir.
+- **Onay kayıtları ve durum geçişleri** (BR-7, BR-8) — kim neyi ne zaman onayladı, geri alınamaz.
+- **Kimlik doğrulama ve yetkilendirme** (oturum, rol, sahiplik; BR-9, BR-10, `docs/security.md`).

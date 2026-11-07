@@ -1,15 +1,15 @@
 # AGENTS.md — Project Rules
 
-> **STATUS: NOT CONFIGURED.** This workspace has not been adapted to a project yet.
-> The only correct first action is the bootstrap workflow (`workflows/bootstrap.md`).
-> Until bootstrap completes and rewrites this file, do not write application code.
+**Leave Manager (eğitim/demo):** çalışan izin talebi oluşturur, yönetici onaylar/reddeder, yıllık izin
+bakiyesi takip edilir. Python 3.12 + FastAPI + SQLite backend, vanilla JS/HTML/CSS frontend; klasik
+N katmanlı (`api → services → repositories → models`). Ayrıntı her zaman aşağıdaki dosyalarda — burası tabela.
 
 ## Operating mode
 
-**Mode: unset** — bootstrap sets `lite` or `strict` (`workflows/README.md`); every workflow honors its gates.
+**Mode: lite** — bootstrap sets `lite` or `strict` (`workflows/README.md`); every workflow honors its gates.
 **Start work** with `/new-feature` in lite (it chains the segments and asks at each gate) or with
 `/analyze` in strict (one segment per role). Segment commands always stop (`workflows/segments.md`).
-**Language: unset** — bootstrap sets `chat=<xx> · docs=<xx>`; protocol fields stay English (`docs/conventions.md`).
+**Language: chat=tr · docs=tr** — protocol fields stay English (`docs/conventions.md`).
 
 ## Invariant rules (these survive bootstrap — never delete or weaken them)
 
@@ -26,14 +26,14 @@
 
 | What | Where |
 |---|---|
-| Architecture & boundaries | `docs/architecture.md` |
-| Domain language & business rules | `docs/domain.md` |
-| Coding conventions | `docs/conventions.md` |
-| Testing rules | `docs/testing.md` |
-| Security rules | `docs/security.md` |
-| Git & branching rules | `docs/git.md` |
+| Architecture, katmanlar, yasak bağımlılıklar | `docs/architecture.md` |
+| Domain language, iş kuralları (BR-n), hassas alanlar | `docs/domain.md` |
+| Coding conventions, hata yönetimi, bilinen tuzaklar | `docs/conventions.md` |
+| Testing rules (katmanlar, iki hız, determinizm) | `docs/testing.md` |
+| Security rules (oturum, yetki, bağımlılıklar) | `docs/security.md` |
+| Git & branching rules, trivial changes | `docs/git.md` |
 | Decisions (ADRs) · roles (who may do what) | `docs/decisions/` · `docs/roles/` |
 | Specs & plans | `specs/active/` · `specs/plans/` · shipped → `specs/done/` · deferred findings → `specs/backlog.md` |
 | Processes & gates · prompts & recovery ramps | `workflows/` · `prompts/` |
 | Every command: what it does, where it stops, lite vs strict | `docs/commands.md` |
-| The single verification command | `scripts/check` |
+| The single verification command | `scripts/check` (steps: `scripts/check.conf`) |
