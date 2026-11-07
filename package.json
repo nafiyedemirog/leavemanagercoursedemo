@@ -1,0 +1,13 @@
+{
+  "name": "leave-manager-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Leave Manager frontend tests (vanilla JS, node --test + jsdom)",
+  "type": "module",
+  "engines": {
+    "node": ">=16"
+  },
+  "devDependencies": {
+    "jsdom": "22.1.0"
+  }
+}

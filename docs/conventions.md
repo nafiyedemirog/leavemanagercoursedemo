@@ -18,7 +18,7 @@
 ## Language & framework versions
 - Python **3.12** · FastAPI · SQLAlchemy **2.x** (senkron) · Pydantic **v2** · SQLite (Python'un yerleşik `sqlite3`'ü).
 - Frontend: vanilla JS (ES modules), HTML, CSS — çatı ve derleme adımı yok.
-- Frontend testleri için Node **22 LTS** (`node --test`) + `jsdom`.
+- Frontend testleri için Node **16** (makinedeki sürüm; EOL, `node --test` deneysel — spec 0001 kararı) + `jsdom` **22.1.0** (Node 16 destekleyen son ana sürüm).
 - Araçlar: pytest, ruff (lint + format), mypy, pwdlib[argon2].
 - Kesin sürümler walking skeleton spec'inde `pyproject.toml` / `package.json` içinde sabitlenir
   (sürüm aralığı değil, tam sürüm); bağımlılık eklemek `docs/security.md` "Dependencies"e tabidir.
@@ -32,7 +32,7 @@
   metot adı kuralı cümle gibi söyler: `balance_must_be_sufficient()`, `dates_must_not_overlap()`.
 - Servisler `<Entity>Service`, repository'ler `<Entity>Repository`, şemalar `<Entity>Create` / `<Entity>Response`.
 - Testler: `tests/<katman>/test_<konu>.py`, test adı davranışı söyler:
-  `test_approve_deducts_annual_balance`. Frontend: `frontend/**/*.test.js`.
+  `test_approve_deducts_annual_balance`. Frontend: `frontend/tests/<konu>.test.js`, test adı string olarak `test_<davranış>`.
 - Dallar ve commit'ler: `docs/git.md`.
 
 ## Error handling
@@ -66,7 +66,7 @@
 ## Enforced by tooling
 <!-- List what the compiler/linter/analyzers already enforce, so review doesn't re-litigate it.
 Wire new rules into `scripts/check` whenever possible — prose is advice, tooling is law. -->
-Walking skeleton ile devreye girer (şu an planlı, `scripts/check.conf`):
-- ruff lint + format (kural seti, `DTZ` dahil, `pyproject.toml`'da).
-- mypy tip denetimi.
-- Yasak bağımlılıklar: `tests/architecture/` (`docs/architecture.md`).
+Etkin (spec 0001, `scripts/check.conf`):
+- ruff lint + format — kural seti `pyproject.toml`'da: E, F, W, I, B, UP, DTZ (saat tuzağı), S (güvenlik; testlerde S101 hariç).
+- mypy `strict` (`backend/app`).
+- Yasak bağımlılıklar: `backend/tests/architecture/` (`docs/architecture.md`).

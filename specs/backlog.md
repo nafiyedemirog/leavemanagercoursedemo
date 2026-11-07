@@ -13,3 +13,6 @@ step 7). Nothing lands here without that decision; noise is rejected in the tria
   — Recommendation: <the reviewer's action> — Deferred by: <name>, <YYYY-MM-DD>, <why>
   A decision deferred at bootstrap (its REPORT) uses Source: bootstrap <YYYY-MM-DD>.
 -->
+
+- **B-1** — Starlette 1.10 `TestClient`, `httpx` ile kullanımda `StarletteDeprecationWarning` basıyor ("install `httpx2` instead") — Source: spec 0001, review round 1 (`pyproject.toml:15`, `.venv/.../fastapi/testclient.py:1`) — Severity: Info
+  — Recommendation: `httpx2`'ye geçişi kendi bağımlılık onayıyla ayrı bir değişiklikte yap; uyarıyı `filterwarnings` ile susturma — Deferred by: Nafiye Demiroğ, 2026-11-07, yeni bağımlılık gerektiriyor ve bugün işlevsel etkisi yok

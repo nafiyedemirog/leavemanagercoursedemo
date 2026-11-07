@@ -10,11 +10,11 @@
 
 ## Frameworks & layout
 - **Backend — pytest.**
-  - `tests/unit/` — `services/rules` (her BR-n) ve servis senaryoları; hızlı.
-  - `tests/integration/` — API uçları `TestClient` ile gerçek SQLite üzerinden; marker `@pytest.mark.integration`.
-  - `tests/architecture/` — yasak bağımlılıklar (`ast` ile import taraması, `docs/architecture.md`).
+  - `backend/tests/unit/` — `services/rules` (her BR-n) ve servis senaryoları; hızlı.
+  - `backend/tests/integration/` — API uçları `TestClient` ile gerçek SQLite üzerinden; marker `integration` klasöre göre otomatik eklenir (`backend/tests/integration/conftest.py`).
+  - `backend/tests/architecture/` — yasak bağımlılıklar (`ast` ile import taraması, `docs/architecture.md`).
   - Adlandırma: `test_<konu>.py`, test adı davranışı söyler (`docs/conventions.md`).
-- **Frontend — `node --test` + `jsdom`** (Node 22 LTS). Testler kodun yanında: `frontend/**/*.test.js`.
+- **Frontend — `node --test` + `jsdom` 22.1.0** (Node 16; Node 16'da sonuç dosya bazında raporlanır). Testler `frontend/tests/` altında (sunulan `frontend/public/` dışında).
   JS saf mantık modülleri (doğrulama, gün sayısı, hata kodu → mesaj) ve DOM katmanı olarak ayrılır;
   ekran durumları (boş, yükleniyor, hata, başarılı, yetkisiz) jsdom bileşen testleriyle kanıtlanır.
 - **e2e yok** (Test layers 2): her durum daha alt bir katmanda kanıtlanabiliyor.
@@ -24,8 +24,10 @@
   içi + `StaticPool` ya da `tmp_path`); hiçbir çalıştırma diske kalıcı veri bırakmaz.
 - **Determinizm:** saat enjekte edilen `Clock`'tan, testlerde sabit; `TZ=UTC`; rastgelelik yok.
   Frontend'de animasyon/geçiş yok, `prefers-reduced-motion` desteklenir; jsdom'da zaten hareket yok.
-- **Ekran görüntüleri (Evidence for UI criteria):** VERIFY'da headless tarayıcı ile (önerilen araç:
-  Playwright), check dışında, geçici dizinde; araç seçimi walking skeleton'da kesinleşir.
+- **Ekran görüntüleri (Evidence for UI criteria):** VERIFY'da makinede kurulu **headless Edge** ile
+  (`msedge --headless --screenshot=<dosya> --window-size=<g,y> <url>`); yeni bağımlılık yok, check
+  dışında, görüntüler ve betik repo dışındaki geçici dizinde. Uygulama başlatılıp çekimden sonra
+  durdurulur; durumlar (yükleniyor, hata) sabit, deterministik bir yanıtla üretilir. Karar: spec 0001, A-1.
 
 ## What must be tested
 - Her iş kuralı **BR-1…BR-10** (`docs/domain.md`) en az bir unit testle; ihlal durumu dahil.
@@ -33,7 +35,7 @@
   denetimi) bir integration testiyle — durum kodu değil, sonuç (bakiye, durum) doğrulanır.
 - Her yetki kuralı izinli **ve** izinsiz haliyle: giriş yapılmamış (401), yanlış rol / başkasının
   kaydı (403), yönetici kendi talebi (403, `AuthorizationException`) — hassas alan (`docs/domain.md`).
-- Her yasak bağımlılık (`tests/architecture/`).
+- Her yasak bağımlılık (`backend/tests/architecture/`).
 - Her UI ekranının spec'te listelenen durumları (jsdom bileşen testi).
 - e2e: yok; bütçe 0 yolculuk.
 - Kapsam yüzdesi eşiği yok: kanıt, plan'daki kriter ↔ test eşlemesidir.

@@ -1,0 +1,30 @@
+:root {
+  --text: #1f2933;
+  --background: #ffffff;
+  --muted: #52606d;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--background);
+}
+
+main {
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+#health-status {
+  color: var(--muted);
+}
+
+/* No motion anywhere (docs/testing.md, Determinism). */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
