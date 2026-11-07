@@ -10,11 +10,11 @@
 
 ## Frameworks & layout
 - **Backend — pytest.**
-  - `tests/unit/` — `services/rules` (her BR-n) ve servis senaryoları; hızlı.
-  - `tests/integration/` — API uçları `TestClient` ile gerçek SQLite üzerinden; marker `@pytest.mark.integration`.
-  - `tests/architecture/` — yasak bağımlılıklar (`ast` ile import taraması, `docs/architecture.md`).
+  - `backend/tests/unit/` — `services/rules` (her BR-n) ve servis senaryoları; hızlı.
+  - `backend/tests/integration/` — API uçları `TestClient` ile gerçek SQLite üzerinden; marker `integration` klasöre göre otomatik eklenir (`backend/tests/integration/conftest.py`).
+  - `backend/tests/architecture/` — yasak bağımlılıklar (`ast` ile import taraması, `docs/architecture.md`).
   - Adlandırma: `test_<konu>.py`, test adı davranışı söyler (`docs/conventions.md`).
-- **Frontend — `node --test` + `jsdom`** (Node 22 LTS). Testler kodun yanında: `frontend/**/*.test.js`.
+- **Frontend — `node --test` + `jsdom` 22.1.0** (Node 16; Node 16'da sonuç dosya bazında raporlanır). Testler `frontend/tests/` altında (sunulan `frontend/public/` dışında).
   JS saf mantık modülleri (doğrulama, gün sayısı, hata kodu → mesaj) ve DOM katmanı olarak ayrılır;
   ekran durumları (boş, yükleniyor, hata, başarılı, yetkisiz) jsdom bileşen testleriyle kanıtlanır.
 - **e2e yok** (Test layers 2): her durum daha alt bir katmanda kanıtlanabiliyor.
@@ -33,7 +33,7 @@
   denetimi) bir integration testiyle — durum kodu değil, sonuç (bakiye, durum) doğrulanır.
 - Her yetki kuralı izinli **ve** izinsiz haliyle: giriş yapılmamış (401), yanlış rol / başkasının
   kaydı (403), yönetici kendi talebi (403, `AuthorizationException`) — hassas alan (`docs/domain.md`).
-- Her yasak bağımlılık (`tests/architecture/`).
+- Her yasak bağımlılık (`backend/tests/architecture/`).
 - Her UI ekranının spec'te listelenen durumları (jsdom bileşen testi).
 - e2e: yok; bütçe 0 yolculuk.
 - Kapsam yüzdesi eşiği yok: kanıt, plan'daki kriter ↔ test eşlemesidir.

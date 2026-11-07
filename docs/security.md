@@ -26,6 +26,8 @@
   token kullanılmaz (gerekçe: aynı origin; XSS'te token çalınamaz; SameSite CSRF'i kapatır).
 - **Varsayılan: reddet.** `/api/auth/login` ve statik dosyalar dışındaki her uç oturum ister; bu
   router seviyesinde topluca uygulanır, endpoint başına hatırlamaya bırakılmaz.
+- **İstisnalar (oturumsuz uçlar)** — liste kapalıdır; ekleme kendi spec'iyle olur:
+  - `GET /api/health` — yalnızca `{"status": "ok"}` döner; sürüm, ortam, sunucu bilgisi yok (spec 0001).
 - **Rol denetimi** `api` katmanında `Depends(require_role(...))` ile; **sahiplik kuralları**
   `services/rules` içinde (BR-9, BR-10, `docs/domain.md`):
   - çalışan yalnızca kendi taleplerini ve bakiyesini görür;

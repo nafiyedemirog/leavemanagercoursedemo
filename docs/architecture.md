@@ -22,8 +22,10 @@ backend/app/
   repositories/    SQLAlchemy sorguları; ortak BaseRepository + sayfalama
   models/          SQLAlchemy ORM tabloları
   core/            ayarlar, DB oturumu, Clock, hata tipleri, güvenlik yardımcıları
-frontend/          index.html, *.js (saf mantık ayrı modüllerde), *.css
-tests/             unit/ · integration/ · architecture/ (backend) — frontend testleri frontend/ yanında
+frontend/          vanilla JS/HTML/CSS (saf mantık ayrı modüllerde)
+backend/tests/     unit/ · integration/ · architecture/
+frontend/public/   sunulan dosyalar (index.html, js/, css/) · frontend/tests/ jsdom testleri (sunulmaz)
+tools/py           .venv Python'unu çalıştırır (check.conf bunu kullanır)
 ```
 
 ## Modules / components and ownership
@@ -48,7 +50,7 @@ tests/             unit/ · integration/ · architecture/ (backend) — frontend
 - Senkron çağrılar; mesaj kuyruğu / olay sistemi yoktur.
 
 ## Forbidden dependencies (make them testable)
-`tests/architecture/` içindeki pytest testi, `ast` ile import'ları tarayarak doğrular (ek paket yok):
+`backend/tests/architecture/test_layer_dependencies.py` içindeki pytest testi, `ast` ile import'ları tarayarak doğrular (ek paket yok):
 1. `app.api` → `app.repositories` ve `app.models` import etmez; yalnızca `app.services`, `app.schemas`, `app.core` kullanır.
 2. `app.services` → `app.api` ve `fastapi` import etmez (iş kuralları HTTP'den bağımsız test edilir).
 3. `app.repositories` → `app.services` ve `app.api` import etmez.
