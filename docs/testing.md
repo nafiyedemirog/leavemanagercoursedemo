@@ -24,8 +24,10 @@
   içi + `StaticPool` ya da `tmp_path`); hiçbir çalıştırma diske kalıcı veri bırakmaz.
 - **Determinizm:** saat enjekte edilen `Clock`'tan, testlerde sabit; `TZ=UTC`; rastgelelik yok.
   Frontend'de animasyon/geçiş yok, `prefers-reduced-motion` desteklenir; jsdom'da zaten hareket yok.
-- **Ekran görüntüleri (Evidence for UI criteria):** VERIFY'da headless tarayıcı ile (önerilen araç:
-  Playwright), check dışında, geçici dizinde; araç seçimi walking skeleton'da kesinleşir.
+- **Ekran görüntüleri (Evidence for UI criteria):** VERIFY'da makinede kurulu **headless Edge** ile
+  (`msedge --headless --screenshot=<dosya> --window-size=<g,y> <url>`); yeni bağımlılık yok, check
+  dışında, görüntüler ve betik repo dışındaki geçici dizinde. Uygulama başlatılıp çekimden sonra
+  durdurulur; durumlar (yükleniyor, hata) sabit, deterministik bir yanıtla üretilir. Karar: spec 0001, A-1.
 
 ## What must be tested
 - Her iş kuralı **BR-1…BR-10** (`docs/domain.md`) en az bir unit testle; ihlal durumu dahil.
