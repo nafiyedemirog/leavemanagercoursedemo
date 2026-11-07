@@ -1,0 +1,44 @@
+backend/tests/conftest.py
+  s_e42a0a8d7e6bba::t_3d43df3a391847 1-19
+backend/app/core/security_headers.py
+  s_e42a0a8d7e6bba::t_ca59a21965b9f4 1-33
+backend/app/core/errors.py
+  s_e42a0a8d7e6bba::t_81cac0f6d41bc1 1-40,43-48,51,57-63,67-75
+  s_e42a0a8d7e6bba::t_92a7f071dfe3ed 41-42,49-50
+  s_e42a0a8d7e6bba::t_0a932ae86e3cd0 52-56,64-66
+backend/app/main.py
+  s_e42a0a8d7e6bba::t_93165f31d92be2 1-27
+backend/tests/integration/conftest.py
+  s_e42a0a8d7e6bba::t_fafae57457f790 1-18
+backend/app/api/health.py
+  s_e42a0a8d7e6bba::t_1b42ed596f5d5f 1-12
+backend/tests/integration/test_security_headers.py
+  s_e42a0a8d7e6bba::t_8d8b280a7b6288 1-25
+backend/app/schemas/health.py
+  s_e42a0a8d7e6bba::t_c47b383db7f9c7 1-9
+frontend/public/index.html
+  s_e42a0a8d7e6bba::t_5ac3a9ca2aec45 1-16
+backend/tests/integration/test_health.py
+  s_e42a0a8d7e6bba::t_849aad5f9ac3fb 1-10
+backend/tests/integration/test_errors.py
+  s_e42a0a8d7e6bba::t_1dd81bcd4c19a1 1-4,6-12,14-47,49-51
+  s_e42a0a8d7e6bba::t_0a932ae86e3cd0 5,13,48
+backend/tests/integration/test_index_page.py
+  s_e42a0a8d7e6bba::t_049f89aba44be4 1-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3f00fffd744ae6d6dc22ba2728b9562283e6a3cb",
+  "prompts": {},
+  "sessions": {
+    "s_e42a0a8d7e6bba": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5724625b-5a82-4883-b87f-404a6af237ab",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Nafiye Demiroğ <45822420+nafiyedemirog@users.noreply.github.com>"
+    }
+  }
+}
