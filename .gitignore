@@ -14,3 +14,11 @@ Thumbs.db
 
 # Claude Code personal settings (shared settings.json IS committed after init)
 .claude/settings.local.json
+
+# Python / Node toolchain (plan 0001)
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
