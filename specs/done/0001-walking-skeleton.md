@@ -1,6 +1,6 @@
 # Spec 0001 — walking skeleton
 
-- Status: In progress
+- Status: Shipped
 - Mode: lite
 - Plan: `specs/plans/0001-plan.md`
 - Self-critique: done
@@ -56,28 +56,28 @@ izin talebi, bakiye, kullanıcı girişi ve veritabanı tabloları — bunlar so
 - Size: 9 kriter, tek kullanıcı yeteneği (sistemin ayakta olduğunu görmek) — bölme önerilmiyor.
 
 ## Acceptance criteria
-- [ ] AC-1 — Uygulama belgelenmiş tek komutla yerelde başlatıldığında ana adres bir HTML sayfası döner; sayfanın başlığı "Leave Manager"dır ve dili `tr`'dir.
-- [ ] AC-2 — Sağlık durumu, oturum olmadan sorgulandığında başarılı yanıt ve "çalışıyor" durumunu döner; yanıtta durum dışında alan yoktur.
-- [ ] AC-3 — Ana sayfa, sağlık sorgusu sürerken "Sistem durumu kontrol ediliyor…" metnini gösterir.
-- [ ] AC-4 — Ana sayfa, sağlık sorgusu başarılı olduğunda "Sistem çalışıyor" metnini gösterir.
-- [ ] AC-5 — Ana sayfa, sağlık sorgusu başarısız olduğunda (ağ hatası veya hata yanıtı) hata metnini gösterir; sunucudan gelen metin sayfaya HTML olarak yorumlanmadan yazılır.
-- [ ] AC-6 — Var olmayan bir adres istendiğinde yanıt 404'tür ve kararlaştırılan hata biçimindedir (`type`, `title`, `status`, `detail`; `detail` Türkçe).
-- [ ] AC-7 — Beklenmeyen bir sunucu hatasında yanıt 500'dür, kararlaştırılan hata biçimindedir ve genel bir Türkçe mesaj taşır; istisna mesajı, stack trace ve dosya yolu yanıtta yer almaz.
-- [ ] AC-8 — Ana sayfa, sağlık yanıtı ve hata yanıtları `Content-Security-Policy: default-src 'self'`, `X-Content-Type-Options: nosniff` ve `Referrer-Policy: same-origin` başlıklarını taşır.
-- [ ] AC-9 — Mimari testi, `docs/architecture.md`'deki yasak bağımlılık kurallarından birini ihlal eden bir import'u tespit eder ve başarısız olur; mevcut kodda ihlal yoktur ve test geçer.
+- [x] AC-1 — Uygulama belgelenmiş tek komutla yerelde başlatıldığında ana adres bir HTML sayfası döner; sayfanın başlığı "Leave Manager"dır ve dili `tr`'dir.
+- [x] AC-2 — Sağlık durumu, oturum olmadan sorgulandığında başarılı yanıt ve "çalışıyor" durumunu döner; yanıtta durum dışında alan yoktur.
+- [x] AC-3 — Ana sayfa, sağlık sorgusu sürerken "Sistem durumu kontrol ediliyor…" metnini gösterir.
+- [x] AC-4 — Ana sayfa, sağlık sorgusu başarılı olduğunda "Sistem çalışıyor" metnini gösterir.
+- [x] AC-5 — Ana sayfa, sağlık sorgusu başarısız olduğunda (ağ hatası veya hata yanıtı) hata metnini gösterir; sunucudan gelen metin sayfaya HTML olarak yorumlanmadan yazılır.
+- [x] AC-6 — Var olmayan bir adres istendiğinde yanıt 404'tür ve kararlaştırılan hata biçimindedir (`type`, `title`, `status`, `detail`; `detail` Türkçe).
+- [x] AC-7 — Beklenmeyen bir sunucu hatasında yanıt 500'dür, kararlaştırılan hata biçimindedir ve genel bir Türkçe mesaj taşır; istisna mesajı, stack trace ve dosya yolu yanıtta yer almaz.
+- [x] AC-8 — Ana sayfa, sağlık yanıtı ve hata yanıtları `Content-Security-Policy: default-src 'self'`, `X-Content-Type-Options: nosniff` ve `Referrer-Policy: same-origin` başlıklarını taşır.
+- [x] AC-9 — Mimari testi, `docs/architecture.md`'deki yasak bağımlılık kurallarından birini ihlal eden bir import'u tespit eder ve başarısız olur; mevcut kodda ihlal yoktur ve test geçer.
 
 ## Definition of Done
-- [ ] Every acceptance criterion mapped to proof (test or reproducible observation)
-- [ ] `scripts/check` green
-- [ ] Independent review done; real findings fixed, noise rejected with written rationale, deferred ones in `specs/backlog.md`
-- [ ] Docs / ADRs updated if behavior or architecture changed
-- [ ] Spec moved to `specs/done/` (it becomes immutable there)
+- [x] Every acceptance criterion mapped to proof (test or reproducible observation)
+- [x] `scripts/check` green
+- [x] Independent review done; real findings fixed, noise rejected with written rationale, deferred ones in `specs/backlog.md`
+- [x] Docs / ADRs updated if behavior or architecture changed
+- [x] Spec moved to `specs/done/` (it becomes immutable there)
 
 ## Scorecard (fill at ship — honest numbers make the process improvable)
 | Metric | Value |
 |---|---|
-| Spec revisions | |
-| Fix rounds | |
-| Review findings: real / noise / deferred | |
-| Regressions introduced | |
-| Bugs escaped to production | |
+| Spec revisions | 1 (Node 16 kararı, onay sırasında) |
+| Fix rounds | 1 |
+| Review findings: real / noise / deferred | 4 / 0 / 1 (B-1) |
+| Regressions introduced | 0 |
+| Bugs escaped to production | 0 (henüz üretimde değil) |
