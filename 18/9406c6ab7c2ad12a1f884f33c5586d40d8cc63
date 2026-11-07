@@ -1,0 +1,21 @@
+specs/done/0001-walking-skeleton.md
+  s_e42a0a8d7e6bba::t_0a1580672c6291 3,59-67,70-74,79-83
+specs/plans/0001-plan.md
+  s_e42a0a8d7e6bba::t_91d475e2ad680b 139-143
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "189406c6ab7c2ad12a1f884f33c5586d40d8cc63",
+  "prompts": {},
+  "sessions": {
+    "s_e42a0a8d7e6bba": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5724625b-5a82-4883-b87f-404a6af237ab",
+        "model": "unknown"
+      },
+      "human_author": "Nafiye Demiroğ <45822420+nafiyedemirog@users.noreply.github.com>"
+    }
+  }
+}
