@@ -1,6 +1,7 @@
 # Testing
 
-> **Template — filled during bootstrap.**
+> Bootstrap'ta dolduruldu (2026-11-07): "Frameworks & layout" ve "What must be tested" projeye
+> özgüdür; diğer bölümler ANEW'in ortak kurallarıdır.
 
 ## The contract
 - Every acceptance criterion maps to at least one test (criterion ↔ test map lives in the plan).
@@ -8,11 +9,34 @@
 - The whole suite runs inside `scripts/check` — one command, everywhere.
 
 ## Frameworks & layout
-<!-- Test framework(s), where tests live, naming pattern. -->
+- **Backend — pytest.**
+  - `tests/unit/` — `services/rules` (her BR-n) ve servis senaryoları; hızlı.
+  - `tests/integration/` — API uçları `TestClient` ile gerçek SQLite üzerinden; marker `@pytest.mark.integration`.
+  - `tests/architecture/` — yasak bağımlılıklar (`ast` ile import taraması, `docs/architecture.md`).
+  - Adlandırma: `test_<konu>.py`, test adı davranışı söyler (`docs/conventions.md`).
+- **Frontend — `node --test` + `jsdom`** (Node 22 LTS). Testler kodun yanında: `frontend/**/*.test.js`.
+  JS saf mantık modülleri (doğrulama, gün sayısı, hata kodu → mesaj) ve DOM katmanı olarak ayrılır;
+  ekran durumları (boş, yükleniyor, hata, başarılı, yetkisiz) jsdom bileşen testleriyle kanıtlanır.
+- **e2e yok** (Test layers 2): her durum daha alt bir katmanda kanıtlanabiliyor.
+- **İki hız (selector ile):** `--fast` = ruff, mypy, `pytest -m "not integration"`, frontend testleri;
+  full-only = `pytest -m integration`. Fast ∪ full = tüm testler, yapı gereği.
+- **Veri hijyeni (Resource hygiene 5):** her test kendi temiz SQLite veritabanıyla başlar (bellek
+  içi + `StaticPool` ya da `tmp_path`); hiçbir çalıştırma diske kalıcı veri bırakmaz.
+- **Determinizm:** saat enjekte edilen `Clock`'tan, testlerde sabit; `TZ=UTC`; rastgelelik yok.
+  Frontend'de animasyon/geçiş yok, `prefers-reduced-motion` desteklenir; jsdom'da zaten hareket yok.
+- **Ekran görüntüleri (Evidence for UI criteria):** VERIFY'da headless tarayıcı ile (önerilen araç:
+  Playwright), check dışında, geçici dizinde; araç seçimi walking skeleton'da kesinleşir.
 
 ## What must be tested
-<!-- e.g. every business rule (BR-n), every boundary/forbidden dependency; the e2e journeys and
-     budget, if the project has e2e at all (Test layers). -->
+- Her iş kuralı **BR-1…BR-10** (`docs/domain.md`) en az bir unit testle; ihlal durumu dahil.
+- Her durum geçişi ve bakiye etkisi (onayda düşme, retde etkisizlik, onay anında yeniden bakiye
+  denetimi) bir integration testiyle — durum kodu değil, sonuç (bakiye, durum) doğrulanır.
+- Her yetki kuralı izinli **ve** izinsiz haliyle: giriş yapılmamış (401), yanlış rol / başkasının
+  kaydı (403), yönetici kendi talebi (403, `AuthorizationException`) — hassas alan (`docs/domain.md`).
+- Her yasak bağımlılık (`tests/architecture/`).
+- Her UI ekranının spec'te listelenen durumları (jsdom bileşen testi).
+- e2e: yok; bütçe 0 yolculuk.
+- Kapsam yüzdesi eşiği yok: kanıt, plan'daki kriter ↔ test eşlemesidir.
 
 ## Test layers
 1. **The cheapest test that proves the criterion.** Unit first, then component or integration
