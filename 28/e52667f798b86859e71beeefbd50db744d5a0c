@@ -1,0 +1,29 @@
+.github/workflows/check.yml
+  s_e42a0a8d7e6bba::t_435a864c383589 22-33
+scripts/check.conf
+  s_e42a0a8d7e6bba::t_066862b2fe496b 2,8-25
+docs/security.md
+  s_e42a0a8d7e6bba::t_65916f67afe25a 29-30
+docs/architecture.md
+  s_e42a0a8d7e6bba::t_034baa91af177a 25-28,53
+docs/conventions.md
+  s_e42a0a8d7e6bba::t_dd837c211fd9a8 21,35,69-72
+docs/testing.md
+  s_e42a0a8d7e6bba::t_39647d662cc3f9 13-15,17,36
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "28e52667f798b86859e71beeefbd50db744d5a0c",
+  "prompts": {},
+  "sessions": {
+    "s_e42a0a8d7e6bba": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5724625b-5a82-4883-b87f-404a6af237ab",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "Nafiye Demiroğ <45822420+nafiyedemirog@users.noreply.github.com>"
+    }
+  }
+}
